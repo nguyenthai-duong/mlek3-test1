@@ -4,13 +4,13 @@ import requests
 from pyvi.ViTokenizer import tokenize
 from llama_index.core import PromptTemplate
 import os
-from loguru import logger
+import logging
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.trace import get_tracer_provider, set_tracer_provider
-from opentelemetry import trace  # Import thêm thư viện này
+from opentelemetry import trace  
 
 JAEGER_HOST = os.getenv("JAEGER_HOST", "jaeger-tracing-jaeger-all-in-one.jaeger-tracing.svc.cluster.local")
 JAEGER_PORT = os.getenv("JAEGER_PORT", "6831")
@@ -32,6 +32,10 @@ jaeger_exporter = JaegerExporter(
 )
 span_processor = BatchSpanProcessor(jaeger_exporter)
 trace_provider.add_span_processor(span_processor)
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.WARNING) 
 
 app = FastAPI(
     title="Rag",
