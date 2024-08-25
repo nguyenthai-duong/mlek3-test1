@@ -26,7 +26,7 @@ pipeline {
                 kubernetes {
                     containerTemplate {
                         name 'helm' // Name of the container to be used for helm upgrade
-                        image 'quandvrobusto/jenkins:lts-jdk17' // The image containing helm
+                        image 'nthaiduong83/jenkins-k8s:v1' // The image containing helm
                         alwaysPullImage true // Always pull image in case of using the same tag
                     }
                 }
@@ -34,9 +34,7 @@ pipeline {
             steps {
                 script {
                     container('helm') {
-                        sh("helm upgrade --install rag-controller ./rag_controller1/helm_rag_controller --namespace rag-controller \\
-                            --set deployment.image.name=${registry} \\
-                            --set deployment.image.version=${imageTag}")
+                        sh("helm upgrade --install rag-controller ./rag_controller1/helm_rag_controller --namespace rag-controller --set deployment.image.name=${registry} --set deployment.image.version=${imageTag}")
                     }
                 }
             }
