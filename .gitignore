@@ -1,0 +1,11 @@
+llm1/
+data_pipeline/
+data
+.vscode/
+test/
+playbooks/secrets
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+readme
+ansible/secrets
